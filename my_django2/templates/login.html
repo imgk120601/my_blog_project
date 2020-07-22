@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block body_block %}
+
+<h1>Welcome to login page</h1>
+<h1>Login here</h1>
+<form  action="{% url 'login'%}" method="POST"> <!--action leads it to ++basic_app:user_login++ which has--> <!--login function in views.py and also see LOGIN_URL='/basic_app/user_login' user_login is a path in urls.py-first_app-->
+	{%csrf_token%}<!--for the secuirity-->
+
+	<label for='id1'>Username </label>
+	<input id='id1' type="text" name="username" placeholder="Enter your Username"><br><br>
+	<label for='id2'>Password </label>
+	<input id='id2' type="password" name="password"><br><br>
+
+	<input class="btn btn-warning"  type="submit" name="Login" value="Login">
+ </form>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+{%block body_block%}
+
+{% if registered%}
+	<h1>Registration Completed</h1>
+	<h1>Thank You for registration</h1>
+
+
+{% else %}
+	<h1>Register Here!!</h1>
+	<form enctype="multipart/form-data" method="POST"> <!--enctype='mutipart/form-data' is use with images-->
+		{%csrf_token%}
+		{{user_form.as_p}}<!-- this is template tagging for its -->
+		{{profile_form.as_p}}<!-- this is template tagging for its -->
+		
+
+		<input type="submit" name="submit">		
+	</form>
+{%endif%}
+
+{% endblock%}

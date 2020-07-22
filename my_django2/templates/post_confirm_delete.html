@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% block body_block%}
+<form method="POST"><!-- and schoo_detail is not universal that's we use school instead school_detail here-->
+	{% csrf_token %}
+	<h2>Are you sure you want to delete {{post.title}} ?</h2><br>
+	<input type="submit" class="btn btn-danger" value="DELETE">
+	
+	<a href="{% url 'first_app:post_detail' pk=post.pk%}">          Cancel</a>
+
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body_block%}
+<h1>{{post_detail.title}}</h1>
+
+{% if post_detail.published_date %}
+	<h2>{{post.published_date}}</h2>
+{% else%}
+	<a  class="btn btn-warning" href="{%url 'first_app:post_publish' pk=post_detail.pk%}">PUBLISH</a>
+{% endif %}
+
+<p>{{post_detail.text|safe}}</p><!--if by using medium css class we do something it will appear like  <b> bold text</b> -->
+<!--so avoiding it we use "|safe"-->
+{% if user.is_authenticated %}
+		<a  class="btn btn-warning" href="{% url 'first_app:update' pk=post_detail.pk%}">UPDATE</a>
+		<a  class="btn btn-danger" href="{% url 'first_app:delete' pk=post_detail.pk%}">DELETE</a>
+
+{% endif %}
+<br>
+<br>
+<br>
+ <hr><hr>
+<a class="btn btn-primary btn-comment" href="{% url 'first_app:add_comment_to_post' pk=post_detail.pk %}">Add comment</a>
+<br>
+<br>
+
+{% for comment in post_detail.comments.all%}
+	{%if user.is_authenticated or comment.approved_comments%}
+		{{comment.create_date}}
+		{%if not comment.approved_comments%}
+        	<a class="btn btn-default" href="{% url 'first_app:delete_comment' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="btn btn-default" href="{% url 'first_app:approve_comment' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+
+
+		{%endif%}
+		<p>{{comment.text|safe}}</p>
+		<p>Comment By: {{comment.author}}</p>
+	{% endif %}
+
+	{% empty%}<!-- this special when it is emply-->
+	<p>No Comments!!!!</p>
+{% endfor %}
+{% endblock %}
